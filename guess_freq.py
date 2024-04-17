@@ -47,9 +47,23 @@ def play_freq(freq):
     p.terminate()
 
 if __name__ == "__main__":
+
+    print()
+    print("\n==============================")
+    print("WELCOME TO FREQS FOR FREAKS")
+    print("Made by Phil Xie")
+    print("==============================")
+    keep_score = input("Keep Score? (press 'y')")
+    keep_score = (keep_score == 'y')
+    
+    count = 1
+    num_rounds = 5
+    total_octave_error = 0
     while True:
         print("\n==============================")
-        freq = random.uniform(27.5, 4186.01)
+        if keep_score:
+            print("ROUND ", count)
+        freq = random.uniform(50, 500)
         print("Playing new note...")
         play_freq(freq)
 
@@ -64,3 +78,32 @@ if __name__ == "__main__":
 
         print("\nActual Frequency:", round(freq, 3))
         print("Octave Error:", round(octave_diff, 3))
+
+        # keep score
+        if keep_score:
+            count += 1
+            total_octave_error += abs(octave_diff)
+            if count % num_rounds == 0: # game ends
+                count = 0
+                avg_octave_error = round(total_octave_error / num_rounds, 3)
+                print()
+                print("SUMMARY: =============================")
+                print("Average Octave Error:", avg_octave_error)
+                if avg_octave_error > 0.4:
+                    print("this is a guessing game after all")
+                elif avg_octave_error > 0.15:
+                    print("you did well!")
+                elif avg_octave_error > 0.05:
+                    print("okkk i see you")
+                else:
+                    print("superior ears!")
+                print()
+                start_over = input("Start over? (y/n)")
+                if start_over != 'y':
+                    print("Thanks for playing! \n")
+                    exit()
+
+
+
+
+            
