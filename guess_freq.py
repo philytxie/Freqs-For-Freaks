@@ -79,7 +79,9 @@ if __name__ == "__main__":
         if keep_score:
             print("ROUND ", count + 1)
 
-        freq = random.uniform(30, 3500)
+        min_freq, max_freq = 30, 3500 # change frequency range here!
+        log2_freq = np.random.uniform(np.log2(min_freq), np.log2(max_freq))
+        freq = 2 ** log2_freq
         print("Playing new note...")
         play_freq(freq)
 
