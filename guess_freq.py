@@ -27,6 +27,15 @@ def play_freq(freq):
     p = pyaudio.PyAudio()
 
     volume = 0.5  # range [0.0, 1.0]
+    if freq < 160:
+        volume = max(volume + 0.1, 1)
+    elif freq < 120:
+        volume = max(volume + 0.2, 1)
+    elif freq < 80:
+        volume = max(volume + 0.3, 1)
+    elif freq < 40:
+        volume = max(volume + 0.4, 1)
+
     fs = 44100  # sampling rate (Hz) (must be int)
     duration = 1.3  # seconds
 
@@ -50,20 +59,27 @@ if __name__ == "__main__":
 
     print()
     print("\n==============================")
-    print("WELCOME TO FREQS FOR FREAKS")
-    print("Made by Phil Xie")
+    print("WELCOME TO FREQS FOR FREAKS 🎵👂")
+    print("Made by Phil Xie 🎹")
     print("==============================")
+    print("Friendly Reminder: adjust volume to a comfortable level.")
     keep_score = input("Keep Score? (press 'y')")
     keep_score = (keep_score == 'y')
+    if keep_score:
+        print("Keeping Score. Game on!")
+    else:
+        print("You're in experimental mode :)")
+
     
-    count = 1
+    count = 0
     num_rounds = 5
     total_octave_error = 0
     while True:
         print("\n==============================")
         if keep_score:
-            print("ROUND ", count)
-        freq = random.uniform(50, 500)
+            print("ROUND ", count + 1)
+
+        freq = random.uniform(30, 3500)
         print("Playing new note...")
         play_freq(freq)
 
@@ -89,6 +105,7 @@ if __name__ == "__main__":
                 print()
                 print("SUMMARY: =============================")
                 print("Average Octave Error:", avg_octave_error)
+                print("Feedback: "),
                 if avg_octave_error > 0.4:
                     print("this is a guessing game after all")
                 elif avg_octave_error > 0.15:
