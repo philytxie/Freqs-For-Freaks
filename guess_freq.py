@@ -1,8 +1,9 @@
 """
 FREQUENCY HEARING CHALLENGE
-Simple script for training my perfect pitch in terms of freqs too
+Simple script for training your perfect pitch in terms of frequencies too
 
-Piano range:
+
+Piano range for reference:
 - min = A0 = 27.50 Hz
 - max = C8 = 4186.01 Hz
 
@@ -10,8 +11,14 @@ Piano range:
 Functionality:
 - play random note automatically
 - type r to repeat
-- type guess frequency
+- type to guess frequency
     - calculate octave error (remember freqs are log scale)
+- gamify:
+    - over 5 trials, computes the average octave error
+    - may roast you if you do badly
+
+
+Phil's current high score over 5 rounds is 0.015 
 
 """
 
@@ -108,14 +115,19 @@ if __name__ == "__main__":
                 print("SUMMARY: =============================")
                 print("Average Octave Error:", avg_octave_error)
                 print("Feedback: "),
-                if avg_octave_error > 0.4:
-                    print("this is a guessing game after all")
-                elif avg_octave_error > 0.15:
-                    print("you did well!")
-                elif avg_octave_error > 0.05:
+                if avg_octave_error > 0.415:
+                    print("SKILL ISSUE DETECTED")
+                    print("Your average error was more than 2 whole tones. Try harder :)")
+                elif avg_octave_error > 0.166:
+                    print("Your errors averaged between a major third and a perfect fourth. Try harder :)")
+                elif avg_octave_error > 0.083:
+                    print("you did ok")
+                    print("Your errors averaged within a whole tone. That's not bad")
+                elif avg_octave_error > 0.041:
                     print("okkk i see you")
+                    print("Your errors averaged within a semitone. That's decent!")
                 else:
-                    print("superior ears!")
+                    print("Superior Ears! Your errors averaged within a quarter tone. That's pretty impressive!")
                 print()
                 start_over = input("Start over? (y/n)")
                 if start_over != 'y':
